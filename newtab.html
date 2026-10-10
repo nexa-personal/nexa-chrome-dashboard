@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEXA</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-overlay"></div>
+<main class="page">
+  <header class="topbar">
+    <div class="brand-wrap">
+      <img class="brand-logo" src="logo.png" alt="NEXA" draggable="false">
+    </div>
+    <div class="top-actions">
+      <button id="settingsBtn" class="top-btn" title="تنظیمات">⚙ <span>تنظیمات</span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div id="clock" class="clock">00:00:00</div>
+    <div id="date" class="date">---</div>
+    <form id="searchForm" class="search">
+      <span class="search-icon">⌕</span>
+      <input id="searchInput" autocomplete="off" placeholder="Search the web..." aria-label="جستجو">
+      <select id="searchEngine" aria-label="موتور جستجو">
+        <option value="google">Google</option>
+        <option value="duckduckgo">DuckDuckGo</option>
+      </select>
+    </form>
+  </section>
+
+  <section class="grid" id="widgetGrid">
+    <article class="card widget weather-widget" data-widget="weather" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">LIVE WEATHER</span><h2>هواشناسی</h2></div><div class="head-btns"><button class="mini-btn" id="weatherSearch" title="جستجوی شهر">🔍</button><button class="mini-btn" id="weatherLocate" title="استفاده از موقعیت من">⌖</button></div></div>
+      <div class="weather-main"><div><div id="weatherCity" class="weather-city">تبریز</div><div id="weatherTemp" class="weather-temp">--°</div><div id="weatherDesc" class="muted">در حال دریافت...</div></div><div id="weatherIcon" class="weather-icon">☁</div></div>
+      <div class="weather-rows"><div class="weather-stats">
+        <div><span>رطوبت</span><b id="humidity">--%</b></div>
+        <div><span>باد</span><b id="wind">-- km/h</b></div>
+        <div><span>UV</span><b id="uv">--</b></div>
+        <div><span>AQI</span><b id="aqi">--</b><small id="aqiLabel" class="aqi-label"></small></div>
+      </div>
+      <div id="forecast" class="forecast"></div></div>
+    </article>
+
+    <article id="tasksWidget" class="card widget tasks-widget" data-widget="tasks" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">QUICK TASKS</span><h2>یادداشت سریع</h2></div><div class="head-btns"><button class="mini-btn" id="blurTasks" title="تار/آشکار کردن یادداشت‌ها">👁</button><button class="add-round" id="addTask">+</button></div></div>
+      <div id="taskList" class="task-list"></div>
+      <div class="task-add hidden" id="taskAddBox"><input id="taskInput" placeholder="عنوان گزینه..."><button id="taskConfirm">افزودن</button></div>
+    </article>
+
+    <article class="card widget calc-widget" data-widget="calculator" draggable="false" tabindex="0">
+      <div class="card-head"><div><span class="eyebrow">UTILITY</span><h2>ماشین حساب</h2></div></div>
+      <input id="calcDisplay" class="calc-display" value="0" readonly>
+      <div class="calc-grid">
+        <button data-calc="C" class="danger-key">C</button><button data-calc="(">(</button><button data-calc=")">)</button><button data-calc="/">÷</button>
+        <button data-calc="7">7</button><button data-calc="8">8</button><button data-calc="9">9</button><button data-calc="*">×</button>
+        <button data-calc="4">4</button><button data-calc="5">5</button><button data-calc="6">6</button><button data-calc="-">−</button>
+        <button data-calc="1">1</button><button data-calc="2">2</button><button data-calc="3">3</button><button data-calc="+">+</button>
+        <button data-calc="0" class="span2">0</button><button data-calc=".">.</button><button data-calc="=" class="equal">=</button>
+      </div>
+    </article>
+
+    <article class="card widget worldclock-widget" data-widget="worldclock" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">WORLD CLOCK</span><h2>ساعت جهانی</h2></div><button class="add-round" id="addClock" title="افزودن ساعت">+</button></div>
+      <div id="clockList" class="wc-list"></div>
+    </article>
+
+    <article class="card widget calendar-widget" data-widget="calendar" draggable="false">
+      <div class="card-head"><div><span class="eyebrow" id="calEyebrow">SHAMSI CALENDAR</span><h2>تقویم</h2></div><div class="head-btns"><button class="mini-btn" id="calMode" title="تغییر بین شمسی و میلادی">شمسی</button><button class="mini-btn" id="calToday" title="امروز">●</button></div></div>
+      <div class="cal-nav"><button class="row-x cal-arrow" id="calPrev" title="ماه قبل">›</button><button class="cal-title" id="calTitle" title="کلیک: تغییر بین شمسی و میلادی"></button><button class="row-x cal-arrow" id="calNext" title="ماه بعد">‹</button></div>
+      <div class="cal-sub" id="calSub"></div>
+      <div class="cal-grid" id="calGrid"></div>
+    </article>
+
+    <article class="card widget network-widget" data-widget="network" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">NETWORK</span><h2>شبکه</h2></div><div class="head-btns"><button class="add-round" id="addPing" title="افزودن مقصد پینگ">+</button><button class="mini-btn" id="netRefresh" title="بروزرسانی IP">↻</button></div></div>
+      <div class="net-ip"><small>IP عمومی (برای کپی کلیک کنید)</small><b id="netIp" class="net-ip-val">--</b><div id="netInfo" class="muted"></div></div>
+      <div id="pingList" class="market-list"></div>
+      <div id="netNote" class="source-note"></div>
+    </article>
+
+    <article class="card widget frame-widget" data-widget="frame" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">PHOTO FRAME</span><h2>قاب عکس</h2></div><div class="head-btns"><button class="mini-btn" id="frameTime" title="زمان اسلاید">⏱</button><button class="add-round" id="frameAdd" title="افزودن عکس">+</button></div></div>
+      <div id="frameBox" class="frame-box"></div>
+      <input id="framePick" type="file" accept="image/*" multiple hidden>
+    </article>
+
+    <article class="card widget crypto-widget" data-widget="crypto" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">CRYPTO • USD</span><h2>ارزهای دیجیتال</h2></div><div class="head-btns"><button class="mini-btn" id="refreshCrypto" title="بروزرسانی">↻</button><button class="add-round" id="addCrypto" title="افزودن ارز">+</button></div></div>
+      <div id="cryptoList" class="market-list"></div>
+    </article>
+
+    <article class="card widget forex-widget" data-widget="forex" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">FOREX</span><h2>فارکس</h2></div><div class="head-btns"><button class="mini-btn" id="refreshForex" title="بروزرسانی">↻</button><button class="add-round" id="addForex" title="افزودن جفت‌ارز">+</button></div></div>
+      <div id="forexList" class="market-list"></div>
+    </article>
+
+    <article class="card widget iran-widget" data-widget="iran" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">IRAN MARKET</span><h2>بازار داخلی</h2></div><div class="head-btns"><button class="add-round" id="addIran" title="افزودن نرخ">+</button><button class="mini-btn" id="refreshTGJU" title="بروزرسانی">↻</button></div></div>
+      <div id="iranList" class="market-list"></div>
+      <div id="iranNote" class="source-note">TGJU.ORG</div>
+    </article>
+
+    <article class="card widget bookmarks-widget" data-widget="bookmarks" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">BOOKMARKS</span><h2>بوک‌مارک‌ها</h2></div><button class="add-round" id="addBookmark">+</button></div>
+      <div id="bookmarkList" class="bookmark-list"></div>
+    </article>
+
+    <article class="card widget rss-widget wide-widget" data-widget="rss" draggable="false">
+      <div class="card-head"><div><span class="eyebrow">RSS FEEDS</span><h2>اخبار</h2></div><div class="head-btns"><button class="mini-btn" id="refreshRSS" title="بروزرسانی اخبار">↻</button><button class="mini-btn" id="manageFeeds" title="مدیریت منابع خبری">⚙</button><button class="add-round" id="addFeed" title="افزودن منبع">+</button></div></div>
+      <div id="rssList" class="rss-list"></div>
+    </article>
+  </section>
+
+  <footer>NEXA <span>•</span> Personal New Tab</footer>
+</main>
+
+<dialog id="settings">
+  <div class="dialog-head"><div><span class="eyebrow">NEXA CONTROL</span><h2>تنظیمات</h2></div><button id="closeSettings" class="icon-btn">×</button></div>
+  <div class="settings-scroll">
+    <section class="setting-section">
+      <h3>جستجو</h3>
+      <label class="setting-row"><span>موتور پیش‌فرض</span><select id="settingEngine"><option value="google">Google</option><option value="duckduckgo">DuckDuckGo</option></select></label>
+    </section>
+    <section class="setting-section">
+      <h3>چیدمان</h3>
+      
+      <p class="setting-help">با فعال کردن، ویجت‌ها را با Drag & Drop جابه‌جا کنید. ترتیب به‌صورت خودکار ذخیره می‌شود.</p>
+    </section>
+    <section class="setting-section">
+      <h3>مدیریت ویجت‌ها</h3>
+      <div id="widgetToggles" class="toggle-list"></div>
+      <button id="restoreAll" class="setting-action">افزودن همه ویجت‌های حذف‌شده</button>
+      <button id="resetSizes" class="setting-action ghost">بازنشانی چیدمان و اندازه همه ویجت‌ها</button>
+      <p class="setting-help">با ✕ کنار عنوان هر ویجت می‌توانید آن را حذف کنید؛ از همین‌جا دوباره اضافه می‌شود. اطلاعات ویجت (مثل یادداشت‌ها) با حذف پاک نمی‌شود. برای جابه‌جایی، عنوان هر ویجت را بگیرید و بکشید. اندازه ویجت را با گوشه پایین‌چپ آن تغییر دهید؛ دابل‌کلیک روی گوشه، اندازه همان ویجت را بازنشانی می‌کند.</p>
+    </section>
+    <section class="setting-section">
+      <h3>منابع خبری (RSS)</h3>
+      <button id="settingsFeeds" class="setting-action">مدیریت منابع خبری</button>
+    </section>
+    <section class="setting-section">
+      <h3>پس‌زمینه</h3>
+      <div id="wallpaperPresets" class="wallpaper-grid"></div>
+      <label class="upload-wallpaper"><input id="wallpaperUpload" type="file" accept="image/*">انتخاب تصویر از گالری</label>
+      <button id="clearWallpaper" class="setting-action ghost">بازگشت به پس‌زمینه پیش‌فرض</button>
+    </section>
+  </div>
+  <button id="saveSettings" class="primary">ذخیره تنظیمات</button>
+</dialog>
+
+<dialog id="promptDialog">
+  <div class="dialog-head"><h2 id="promptTitle">افزودن</h2><button id="promptClose" class="icon-btn">×</button></div>
+  <div id="promptFields"></div>
+  <button id="promptSave" class="primary">افزودن</button>
+</dialog>
+
+<dialog id="feedDialog">
+  <div class="dialog-head"><div><span class="eyebrow">RSS</span><h2>مدیریت منابع خبری</h2></div><button id="feedClose" class="icon-btn">×</button></div>
+  <div id="feedManage" class="toggle-list"></div>
+  <button id="feedAddBtn" class="primary">+ افزودن منبع جدید</button>
+</dialog>
+
+<div id="toast" class="toast hidden"><span id="toastMsg"></span><button id="toastBtn"></button></div>
+
+<script src="app.js"></script>
+</body>
+</html>
